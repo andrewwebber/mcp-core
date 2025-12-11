@@ -308,8 +308,10 @@ pub fn tool(args: TokenStream, input: TokenStream) -> TokenStream {
 
         impl #struct_name {
             pub fn tool() -> mcp_core::types::Tool {
-                let schema = schemars::schema_for!(#params_struct_name);
-                let mut schema = serde_json::to_value(schema.schema).unwrap_or_default();
+                use schemars::{schema_for, JsonSchema};
+                let mut schema = schema_for!(#params_struct_name);
+                schema.remove("$schema");
+                let mut schema = serde_json::to_value(schema.to_value()).unwrap_or_default();
                 if let serde_json::Value::Object(ref mut map) = schema {
                     // Add required fields
                     map.insert("required".to_string(), serde_json::Value::Array(
