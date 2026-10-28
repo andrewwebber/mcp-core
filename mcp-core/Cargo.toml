@@ -10,6 +10,9 @@ documentation = "https://github.com/stevohuncho/mcp-core#readme"
 homepage = "https://github.com/stevohuncho/mcp-core"
 readme = "../README.md"
 
+[patch.crates-io]
+reqwest-eventsource = { git = "https://github.com/andrewwebber/reqwest-eventsource.git", branch = "main" }
+
 [dependencies]
 tokio = { version = "1.0", features = ["time", "sync", "rt"] }
 serde = { version = "1.0", features = ["derive"] }
